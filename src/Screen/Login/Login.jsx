@@ -1,9 +1,11 @@
-import { useState } from "react"
 import { Button, FormGroup } from "react-bootstrap"
 import { Form } from "react-bootstrap"
+import { useNavigate } from 'react-router-dom'
+import PropTypes from 'prop-types';
 
 import styles from "./Login.styles"
 import { css } from "glamor"
+import { handleSubmit, useLogin } from "./Login.handlers"
 
 const renderPasswordForm = ({ setPassword }) => (
   <div {...css(styles.formInputContainer)}>
@@ -35,34 +37,13 @@ const renderActionButton = () => (
   </Button>
 )
 
-const handleSubmit = ({ credentials }) => (e) => {
-  e.preventDefault();
-  console.log(`email: ${credentials.email}, password: ${credentials.password}`)
-}
-
-const useLogin = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: ''})
-  const setEmail = (e) => {
-    const { value } = e.target
-    setCredentials({ ...credentials, email: value})
-  }
-  const setPassword = (e) => {
-    const { value } = e.target
-    setCredentials({ ...credentials, password: value})
-  }
-  return {
-    credentials,
-    setEmail,
-    setPassword
-  }
-}
-
-function Login() {
-  const methods = useLogin()
+function Login({ authentication }) {
+  const methods = useLogin(authentication)
+  const navigate = useNavigate()
 
   return (
     <div {...css(styles.container)}>
-      <Form onSubmit={handleSubmit(methods)}>
+      <Form onSubmit={handleSubmit(methods, navigate, authentication)}>
           <FormGroup>
             {renderEmailForm(methods)}
             {renderPasswordForm(methods)}
@@ -71,6 +52,10 @@ function Login() {
       </Form>
     </div>
   )
+}
+
+Login.propTypes = {
+  authentication: PropTypes.object
 }
 
 export default Login

@@ -1,15 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Login } from './Screen'
+import { RootRouter } from './Screen'
 import './App.css'
+import {useAuthentication} from './Components/InitialTokenCheck'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <Login />
+      <RootRouter authentication={useAuthentication()}/>
     </>
   )
 }
