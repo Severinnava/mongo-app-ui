@@ -31,21 +31,21 @@ const renderNavBarOptions = (props) => {
     <AuthenticatedComponents
       authenticated={authenticated}
     >
-      <LinkContainer to='/'>
+      <LinkContainer to='/portfolio'>
         <NavItem {...css(styles.navItem)}>Portfolio</NavItem>
       </LinkContainer>
     </AuthenticatedComponents>
     <AuthenticatedComponents
       authenticated={authenticated}
     >
-      <LinkContainer to='/'>
+      <LinkContainer to='/transaction-history'>
         <NavItem {...css(styles.navItem)}>Transaction History</NavItem>
       </LinkContainer>
     </AuthenticatedComponents>
     <AuthenticatedComponents
       authenticated={authenticated}
     >
-      <LinkContainer to='/'>
+      <LinkContainer to='/browse-product'>
         <NavItem {...css(styles.navItem)}>Browse Product</NavItem>
       </LinkContainer>
     </AuthenticatedComponents>

@@ -2,25 +2,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import { Login, Home } from '../'
+import { Login, Home, Header, Portfolio, TransactionHistory, BrowseProduct } from '../'
 import AuthenticatedComponents from "../../Components/AuthenticatedComponents";
-import Header from "../Header/Header";
 
-// const router = ({ authenticated }) => createBrowserRouter([
-//   {
-//     path: "/",
-//     element:
-//       <AuthenticatedComponents authenticated={authenticated}>
-//         <Home/>
-//       </AuthenticatedComponents>,
-//   },  {
-//     path: "/login",
-//     element:
-//       <AuthenticatedComponents authenticated={authenticated}>
-//         <Login/>
-//       </AuthenticatedComponents>,
-//   }
-// ]);
 
 const renderHome = (authenticated) => (
   <>
@@ -28,6 +12,36 @@ const renderHome = (authenticated) => (
       authenticated={authenticated}
     >
       <Home />
+    </AuthenticatedComponents>
+  </>
+) 
+
+const renderPortfolio = (authenticated) => (
+  <>
+    <AuthenticatedComponents
+      authenticated={authenticated}
+    >
+      <Portfolio />
+    </AuthenticatedComponents>
+  </>
+) 
+
+const renderTransactionHistory = (authenticated) => (
+  <>
+    <AuthenticatedComponents
+      authenticated={authenticated}
+    >
+      <TransactionHistory />
+    </AuthenticatedComponents>
+  </>
+) 
+
+const renderBrowseProduct = (authenticated) => (
+  <>
+    <AuthenticatedComponents
+      authenticated={authenticated}
+    >
+      <BrowseProduct />
     </AuthenticatedComponents>
   </>
 ) 
@@ -47,6 +61,18 @@ const router = (props) => {
       {
         path: "home",
         element: renderHome(authenticated)
+      },
+      {
+        path: "portfolio",
+        element: renderPortfolio(authenticated)
+      },
+      {
+        path: "transaction-history",
+        element: renderTransactionHistory(authenticated)
+      },
+      {
+        path: "browse-product",
+        element: renderBrowseProduct(authenticated)
       },
     ],
   },
