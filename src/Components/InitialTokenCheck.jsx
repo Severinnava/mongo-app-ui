@@ -1,29 +1,31 @@
 import { useState } from 'react'
-import { Login } from '../Screen';
+import { createRequest } from '../Config/generateMethod'
 
 export const useAuthentication = () => {
   const [authenticated, setAuthenticated] = useState(false);
-  const login = () => {
+  const [accessToken, setAccessToken] = useState('');
+  const login = (value) => {
+    setAccessToken(value)
     setAuthenticated(true)
   }
   const logout = () => {
+    setAccessToken('')
     setAuthenticated(false)
   }
 
   return {
     authenticated,
     login,
-    logout
-  }
+    logout,
+    accessToken
+  };
 }
 
 const InitialTokenCheck = (props) => {
   const authentication = useAuthentication()
-  if (authentication.authenticated) {
-    props.render(authentication)
-  } else {
-    <Login/>
-  }
+  const request = createRequest(authentication)
+
+  props.render(authentication, request)
 }
 
 export default InitialTokenCheck

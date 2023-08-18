@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 import styles from "./Login.styles"
 import { css } from "glamor"
-import { handleSubmit, useLogin } from "./Login.handlers"
+import { getHandlers, useLogin } from "./Login.handlers"
 
 const renderPasswordForm = ({ setPassword }) => (
   <div {...css(styles.formInputContainer)}>
@@ -37,13 +37,15 @@ const renderActionButton = () => (
   </Button>
 )
 
-function Login({ authentication }) {
+function Login({ authentication, request }) {
   const methods = useLogin(authentication)
   const navigate = useNavigate()
+  const handlers = getHandlers(request, navigate, authentication)
+  console.log(handlers)
 
   return (
     <div {...css(styles.container)}>
-      <Form onSubmit={handleSubmit(methods, navigate, authentication)}>
+      <Form onSubmit={handlers.handleLogin(methods)}>
           <FormGroup>
             {renderEmailForm(methods)}
             {renderPasswordForm(methods)}
@@ -55,7 +57,8 @@ function Login({ authentication }) {
 }
 
 Login.propTypes = {
-  authentication: PropTypes.object
+  authentication: PropTypes.object,
+  request: PropTypes.object
 }
 
 export default Login

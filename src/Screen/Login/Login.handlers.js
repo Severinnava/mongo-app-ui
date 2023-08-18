@@ -1,11 +1,31 @@
 import { useEffect, useState } from "react";
 
 
-const handleSubmit = ({ credentials }, navigate, authentication) => (e) => {
+const handleSubmit = (request, navigate, authentication) => ({ credentials }) => async (e) => {
   e.preventDefault();
-  console.log(`email: ${credentials.email}, password: ${credentials.password}`)
-  authentication.login()
-  navigate('/home')
+  const { email, password } = credentials
+  console.log(`email: ${email}, password: ${password}`)
+  try {
+    const token = await request.post(
+      '/accounts/login',
+      {
+        email,
+        password
+      }
+      )
+  
+    authentication.login(token)
+    navigate('/home')
+  } catch (e) {
+    console.log('error', e)
+    return
+  }
+}
+
+const getHandlers = (request, navigate, authentication) => {
+  return {
+    handleLogin: handleSubmit(request, navigate, authentication)
+  }
 }
 
 const useLogin = (authentication) => {
@@ -31,6 +51,6 @@ const useLogin = (authentication) => {
 }
 
 export {
-  handleSubmit,
+  getHandlers,
   useLogin
 }

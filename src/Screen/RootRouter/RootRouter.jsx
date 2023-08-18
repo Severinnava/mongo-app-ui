@@ -56,7 +56,7 @@ const router = (props) => {
     children: [
       {
         path: "login",
-        element: <Login authentication={props.authentication}/>
+        element: <Login authentication={props.authentication} request={props.request}/>
       },
       {
         path: "home",
