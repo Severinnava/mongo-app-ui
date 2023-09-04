@@ -1,54 +1,101 @@
 import { css } from 'glamor';
 import { Button, Card, ListGroup} from 'react-bootstrap';
 import styles from './Portfolio.styles';
+import { usePortfolio, getHandlers } from './Portfolio.handlers';
+import { useNavigate } from 'react-router-dom';
+import { formatCurrency } from '../../util/number'
 
-const renderTopSection = () => (
+const renderTopSection = (portfolio, handlers) => (
   <Card.Body>
-    <Card.Title>Portfolio</Card.Title>
+    <Card.Title>{portfolio.name}</Card.Title>
     <Card.Text>
       Total Investment
     </Card.Text>
     <Card.Text>
-      Rp 100.000.000
+      {handlers.calculateTotalInvestment(portfolio.products)}
     </Card.Text>
   </Card.Body>
 )
 
-const renderList = () => (
+const renderProductInfo = (product) => {
+  return (
+  <div>
+    {product.name}
+    <br/>
+    <div {...css(styles.amount)}>
+      <div>
+        {product.units.toFixed(2)} Units
+      </div>
+      <div>
+        {formatCurrency(product.capitalInvestment)}
+      </div>
+    </div>
+  </div>
+  )
+}
+
+const renderList = (products) => (
   <ListGroup className="list-group-flush">
-    <ListGroup.Item variant='light'>Product 1</ListGroup.Item>
-    <ListGroup.Item variant='light'>Product 2</ListGroup.Item>
-    <ListGroup.Item variant='light'>Product 3</ListGroup.Item>
+    {products.map((product, index) => {
+      return (
+        <ListGroup.Item variant='light' key={index}>
+          {renderProductInfo(product)}
+        </ListGroup.Item>
+      )
+    })}
   </ListGroup>
 )
 
-const renderBottomSection = () => (
+const renderBottomSection = (portfolio, handlers) => (
   <Card.Body>
-    <Button variant='outline-dark'>
+    <Button
+    variant='outline-dark'
+    onClick={() => handlers.navigateToBrowseProduct(portfolio)}
+    >
       Top Up
     </Button>
   </Card.Body>
 )
 
-const renderBody = () => (
+const renderBody = (portfolio, handlers) => (
   <>
-    {renderTopSection()}
-    {renderList()}
-    {renderBottomSection()}
+    {renderTopSection(portfolio, handlers)}
+    {renderList(portfolio.products)}
+    {renderBottomSection(portfolio, handlers)}
   </>
 )
 
-const Portfolio = () => {
+const renderCard = (portfolio, handlers) => {
+
+  return (
+    <>
+      <Card 
+        bg={'light'}
+        text={'black'}
+        style={{ width: '18rem' }}
+        className="mb-2"
+        >
+          {renderBody(portfolio, handlers)}
+      </Card>
+    </>
+)}
+
+const Portfolio = (props) => {
+  const { portfolios } = usePortfolio(props)
+  const navigate = useNavigate()
+  const handlers = getHandlers(props, navigate)
+
   return (
     <div {...css(styles.container)}>
-      <Card 
-      bg={'light'}
-      text={'black'}
-      style={{ width: '18rem' }}
-      className="mb-2"
-      >
-        {renderBody()}
-      </Card>
+      {portfolios.length &&
+        portfolios.map((portfolio, index) => {
+          return (
+            <div key={index}>
+              {renderCard(portfolio, handlers)}
+            </div>
+          )
+        })
+      }
     </div>
   );
 }

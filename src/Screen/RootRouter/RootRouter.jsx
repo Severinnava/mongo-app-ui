@@ -6,22 +6,22 @@ import { Login, Home, Header, Portfolio, TransactionHistory, BrowseProduct } fro
 import AuthenticatedComponents from "../../Components/AuthenticatedComponents";
 
 
-const renderHome = (authenticated) => (
+const renderHome = (props) => (
   <>
     <AuthenticatedComponents
-      authenticated={authenticated}
+      authenticated={props.authentication.authenticated}
     >
-      <Home />
+      <Home authentication={props.authentication} request={props.request}/>
     </AuthenticatedComponents>
   </>
 ) 
 
-const renderPortfolio = (authenticated) => (
+const renderPortfolio = (props) => (
   <>
     <AuthenticatedComponents
-      authenticated={authenticated}
+      authenticated={props.authentication.authenticated}
     >
-      <Portfolio />
+      <Portfolio authentication={props.authentication} request={props.request}/>
     </AuthenticatedComponents>
   </>
 ) 
@@ -36,12 +36,12 @@ const renderTransactionHistory = (authenticated) => (
   </>
 ) 
 
-const renderBrowseProduct = (authenticated) => (
+const renderBrowseProduct = (props) => (
   <>
     <AuthenticatedComponents
-      authenticated={authenticated}
+      authenticated={props.authentication.authenticated}
     >
-      <BrowseProduct />
+      <BrowseProduct authentication={props.authentication} request={props.request}/>
     </AuthenticatedComponents>
   </>
 ) 
@@ -60,11 +60,11 @@ const router = (props) => {
       },
       {
         path: "home",
-        element: renderHome(authenticated)
+        element: renderHome(props)
       },
       {
         path: "portfolio",
-        element: renderPortfolio(authenticated)
+        element: renderPortfolio(props)
       },
       {
         path: "transaction-history",
@@ -72,7 +72,7 @@ const router = (props) => {
       },
       {
         path: "browse-product",
-        element: renderBrowseProduct(authenticated)
+        element: renderBrowseProduct(props)
       },
     ],
   },

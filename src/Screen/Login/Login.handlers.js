@@ -4,17 +4,15 @@ import { useEffect, useState } from "react";
 const handleSubmit = (request, navigate, authentication) => ({ credentials }) => async (e) => {
   e.preventDefault();
   const { email, password } = credentials
-  console.log(`email: ${email}, password: ${password}`)
   try {
-    const token = await request.post(
+    const { data } = await request.post(
       '/accounts/login',
       {
         email,
         password
       }
-      )
-  
-    authentication.login(token)
+    )
+    authentication.login(data)
     navigate('/home')
   } catch (e) {
     console.log('error', e)

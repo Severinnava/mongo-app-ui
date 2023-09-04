@@ -4,6 +4,10 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '10%'
+  },
+  amount: {
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }
 

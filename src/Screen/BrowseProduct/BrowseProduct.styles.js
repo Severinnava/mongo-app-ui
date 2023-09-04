@@ -1,5 +1,5 @@
 const styles = {
-  container: {
+  contentContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,7 +14,11 @@ const styles = {
   },
   cardContainer: {
     padding: 25
-  }
+  },
+  pageContainer: {
+    display: 'flex',
+    justifyContent: 'center'
+  },
 }
 
 export default styles

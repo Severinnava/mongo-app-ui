@@ -4,11 +4,11 @@ import { baseUrl } from './config'
 const createInstance = (accessToken) => axios.create({
   baseURL: baseUrl,
   timeout: 8000,
-  headers: {'authentication': `bearer ${accessToken}`}
+  headers: {'authorization': `bearer ${accessToken}`}
 })
 
 const logoutOnTokenExpiry = (error, authentication) => {
-  if (error.status === 401) {
+  if (error.response.data.statusCode === 401) {
     return authentication.logout()
   }
   return Promise.reject(error);

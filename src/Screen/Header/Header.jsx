@@ -55,7 +55,6 @@ const renderNavBarOptions = (props) => {
 const Header = (props) => {
   const { authentication: { authenticated, logout } } = props
   const navigate = useNavigate()
-  console.log('HEADER')
   
   useEffect(() => {
     if (authenticated) {

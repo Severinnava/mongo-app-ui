@@ -41,7 +41,6 @@ function Login({ authentication, request }) {
   const methods = useLogin(authentication)
   const navigate = useNavigate()
   const handlers = getHandlers(request, navigate, authentication)
-  console.log(handlers)
 
   return (
     <div {...css(styles.container)}>
@@ -58,7 +57,7 @@ function Login({ authentication, request }) {
 
 Login.propTypes = {
   authentication: PropTypes.object,
-  request: PropTypes.object
+  request: PropTypes.func
 }
 
 export default Login
