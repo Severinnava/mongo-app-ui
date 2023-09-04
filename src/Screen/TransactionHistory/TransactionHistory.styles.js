@@ -3,7 +3,6 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: '10%',
     flexWrap: 'wrap'
   },
   labelContainer: {
@@ -14,6 +13,18 @@ const styles = {
   },
   cardContainer: {
     padding: 25
+  },
+  filterContainer: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginTop: '5%'
+  },
+  filterContent: {
+    paddingLeft: '10px'
+  },
+  paginationContainer: {
+    display: 'flex',
+    justifyContent: 'center',
   }
 }
 

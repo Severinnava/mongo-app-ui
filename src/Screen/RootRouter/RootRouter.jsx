@@ -26,12 +26,12 @@ const renderPortfolio = (props) => (
   </>
 ) 
 
-const renderTransactionHistory = (authenticated) => (
+const renderTransactionHistory = (props) => (
   <>
     <AuthenticatedComponents
-      authenticated={authenticated}
+      authenticated={props.authentication.authenticated}
     >
-      <TransactionHistory />
+      <TransactionHistory authentication={props.authentication} request={props.request}/>
     </AuthenticatedComponents>
   </>
 ) 
@@ -47,8 +47,6 @@ const renderBrowseProduct = (props) => (
 ) 
 
 const router = (props) => {
-  const { authenticated } = props.authentication
-  
   return createBrowserRouter([
   {
     path: "/",
@@ -68,7 +66,7 @@ const router = (props) => {
       },
       {
         path: "transaction-history",
-        element: renderTransactionHistory(authenticated)
+        element: renderTransactionHistory(props)
       },
       {
         path: "browse-product",

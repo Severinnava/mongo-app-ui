@@ -13,7 +13,7 @@ const handleSubmit = (request, navigate, authentication) => ({ credentials }) =>
       }
     )
     authentication.login(data)
-    navigate('/home')
+    navigate('/portfolio')
   } catch (e) {
     console.log('error', e)
     return
