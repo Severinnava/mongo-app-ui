@@ -15,7 +15,7 @@ const handleSubmit = (request, navigate, authentication) => ({ credentials }) =>
     authentication.login(data)
     navigate('/portfolio')
   } catch (e) {
-    console.log('error', e)
+    console.log(e)
     return
   }
 }

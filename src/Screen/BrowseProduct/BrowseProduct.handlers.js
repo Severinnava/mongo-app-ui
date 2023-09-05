@@ -85,8 +85,6 @@ const handleBuyProduct = (request, methods) => async () => {
       '/transactions', params
     )
 
-    console.log({data})
-
     setPaymentRequest(data)
     hideBuyModal()
     showPaymentRequestModal()

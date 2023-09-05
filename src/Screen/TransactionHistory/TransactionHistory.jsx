@@ -1,7 +1,7 @@
 import { css } from 'glamor';
 import { Card, ListGroup, Pagination, Dropdown } from 'react-bootstrap';
 import styles from './TransactionHistory.styles';
-import { getHandlers, useTransactionHistory } from './TransactionHistory.handlers';
+import { useTransactionHistory } from './TransactionHistory.handlers';
 
 const renderTopSection = (product) => (
   <Card.Body>
@@ -47,7 +47,7 @@ const renderBody = (transaction) => (
   </>
 )
 
-const renderPagination = (handlers, methods) => {
+const renderPagination = (methods) => {
   const { nextPage, previousPage, filter, transactions } = methods
 
   return (
@@ -115,12 +115,12 @@ const renderOrderFilter = (methods) => {
   )
 }
 
-const renderProductOptions = (product, methods) => {
+const renderProductOptions = (product, methods, index) => {
   const { setProductCode } = methods
   const { productCode, name } = product
 
   return (
-    <Dropdown.Item onClick={() => setProductCode(productCode)}>{`${name}`}</Dropdown.Item>
+    <Dropdown.Item key={index} onClick={() => setProductCode(productCode)}>{`${name}`}</Dropdown.Item>
   )
 }
 
@@ -150,7 +150,7 @@ const renderProductCategory = (methods) => {
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
-          {uniqueProduct.map((product) => renderProductOptions(product, methods))}
+          {uniqueProduct.map((product, index) => renderProductOptions(product, methods, index))}
           <Dropdown.Divider />
           <Dropdown.Item onClick={() => setProductCode()}>Reset product</Dropdown.Item>
         </Dropdown.Menu>
@@ -195,7 +195,6 @@ const renderFilterSection = (methods) => (
 
 const TransactionHistory = (props) => {
   const methods = useTransactionHistory(props);
-  const handlers = getHandlers(props, undefined, methods)
   const { transactions } = methods
 
   return (
@@ -216,7 +215,7 @@ const TransactionHistory = (props) => {
         ))}
       </div>
       <div {...css(styles.paginationContainer)}>
-        {renderPagination(handlers, methods)}
+        {renderPagination(methods)}
       </div>
     </>
   );
